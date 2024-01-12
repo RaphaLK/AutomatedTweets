@@ -1,38 +1,24 @@
-require('dotenv').config()
-const https = require('https');
-const queryString = require('querystring');
+require('dotenv').config();
+const { TwitterApi } = require('twitter-api-v2');
 
-const Tweet = querystring.stringify({
-  'text': 'Twitter bot works!'
+const client = new TwitterApi({
+    appKey: process.env.apikey,
+    appSecret: process.env.apikey_secret,
+    accessToken: process.env.a_token,
+    accessSecret: process.env.as_token,
 });
 
-const config = {
-  consumer_key: process.env.c_key,
-  consumer_secret: process.env.cs_key,
-  access_token: process.env.a_token,
-  access_token_secret: process.env.as_token,
+const bearer = new TwitterApi(process.env.bearer);
 
-  hostname: 'https://api.twitter.com',
-  port: 443,
-  path: '/2/tweets/',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Authorization': `OAuth oauth_consumer_key="${process.env.c_key}",oauth_token="${process.env.a_token}",oauth_signature_method="HMAC-SHA1",oauth_nonce="${Date.now()}",oauth_version="1.0",oauth_signature="${YOUR_GENERATED_SIGNATURE}"`
+const twitterClient = client.readWrite;
+const twitterBearer = bearer.readOnly;
+
+const tweet = async () => {
+  try {
+    await twitterClient.v2.tweet("Hello world!");
+  } catch (e) {
+    console.log(e)
   }
 }
 
-
-const postTweet = async (Text) => {
-
-  T.post('https://api.twitter.com/2/tweets', { status: `${Text}` }, (err, data, response) => {
-    if (err) {
-      console.log(err);
-    }
-    else {
-      console.log(data);
-    }
-  })
-
-}
-postTweet('Twitter bot works!');
+tweet();
