@@ -17,7 +17,7 @@ const twitterBearer = bearer.readOnly;
 // Function to post a tweet using library functions
 const tweet = async (tweetContent) => {
   try {
-    await twitterClient.v2.tweet(`${tweetContent}`);
+    await twitterClient.v2.tweet(tweetContent);
   } catch (e) {
     console.log(e)
   }
