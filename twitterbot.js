@@ -13,12 +13,14 @@ const bearer = new TwitterApi(process.env.bearer);
 const twitterClient = client.readWrite;
 const twitterBearer = bearer.readOnly;
 
-const tweet = async () => {
+
+// Function to post a tweet using library functions
+const tweet = async (tweetContent) => {
   try {
-    await twitterClient.v2.tweet("Hello world!");
+    await twitterClient.v2.tweet(`${tweetContent}`);
   } catch (e) {
     console.log(e)
   }
 }
 
-tweet();
+tweet('Woahh! The bot works');
