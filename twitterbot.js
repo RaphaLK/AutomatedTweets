@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { TwitterApi } = require('twitter-api-v2');
+const { generateTweet } = require('./generateTweet');
 
 const client = new TwitterApi({
     appKey: process.env.apikey,
@@ -23,4 +24,5 @@ const tweet = async (tweetContent) => {
   }
 }
 
-tweet('Woahh! The bot works');
+const content = generateTweet();
+tweet(content);
